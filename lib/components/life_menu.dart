@@ -2,8 +2,9 @@ import "package:flutter/material.dart";
 
 class LifeMenu extends StatefulWidget {
   Function resetLifeTotals;
+  AnimationController parentController;
 
-  LifeMenu({this.resetLifeTotals});
+  LifeMenu({this.resetLifeTotals, this.parentController});
 
   @override
   _LifeMenuState createState() => _LifeMenuState();
@@ -42,6 +43,11 @@ class _LifeMenuState extends State<LifeMenu>
         Tween(begin: 0.0, end: 30.0).animate(
           CurvedAnimation(parent: animationController, curve: Curves.linear)
         );
+    widget.parentController.addListener(() {
+      if(widget.parentController.status == AnimationStatus.dismissed && currentMenu != null) {
+        currentMenu = null;
+      }
+    });
   }
 
   Widget buildCurrentMenu(BuildContext context) {

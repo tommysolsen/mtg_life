@@ -114,18 +114,16 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
                             children: LifeBarTheme.themes.entries
                                 .where((theme) => theme.value.icon != null)
                                 .map<Widget>((theme) {
-                              return GestureDetector(
-                                onTap: () {
-                                  ac.reverse();
-                                  widget.themeChangeFunction(theme.key);
-                                },
-                                child: IconButton(
+                              return IconButton(
+                                  onPressed: () {
+                                    ac.reverse();
+                                    widget.themeChangeFunction(theme.key);
+                                  },
                                   icon: ImageIcon(
                                     theme.value.icon,
                                     color: Colors.white,
                                     size: 32,
                                   ),
-                                ),
                               );
                             }).toList(),
                           ),

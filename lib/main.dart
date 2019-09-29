@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage>
       animationController.reverse();
     });
   }
+
   void _changeP1Theme(String theme) {
     setState(() {
       p1Theme = theme;
@@ -118,7 +119,11 @@ class _MyHomePageState extends State<MyHomePage>
       backgroundColor: Color(0xFF38322A),
       body: Stack(
         children: <Widget>[
-          Center(child: LifeMenu(resetLifeTotals: _resetLifeTotal,)),
+          Center(
+              child: LifeMenu(
+            resetLifeTotals: _resetLifeTotal,
+            parentController: animationController,
+          )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
