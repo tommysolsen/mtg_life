@@ -60,14 +60,12 @@ class _MyHomePageState extends State<MyHomePage>
     super.initState();
     Wakelock.enable();
 
-    precacheImage(LifeBarTheme.themes["azorius"].backgroundImage, context);
-    precacheImage(LifeBarTheme.themes["izzet"].backgroundImage, context);
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
     animationController.addListener(() {
       setState(() {});
     });
-    marginAnimation = Tween(begin: 0.0, end: 20.0).animate(
+    marginAnimation = Tween(begin: 0.0, end: 25.0).animate(
         CurvedAnimation(parent: animationController, curve: Curves.easeOut));
   }
 
