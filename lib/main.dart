@@ -70,6 +70,21 @@ class _MyHomePageState extends State<MyHomePage>
   int p1Life = 20;
   int p2Life = 20;
 
+  String p1Theme = "red";
+  String p2Theme = "izzet";
+
+  void _changeP1Theme(String theme) {
+    setState(() {
+      p1Theme = theme;
+    });
+  }
+
+  void _changeP2Theme(String theme) {
+    setState(() {
+      p2Theme = theme;
+    });
+  }
+
   void _changeLifeP1(int amount) {
     setState(() {
       p1Life = max(0, p1Life + amount);
@@ -121,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: Container(
                     margin: EdgeInsets.only(bottom: marginAnimation.value),
                     child: LifeBar(
-                      theme: LifeBarTheme.themes["izzet"],
+                      theme: LifeBarTheme.themes[p1Theme],
                       life: p1Life,
                       flipped: true,
                       lifeChangeFunction: _changeLifeP1,
@@ -151,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: Container(
                     margin: EdgeInsets.only(top: marginAnimation.value),
                     child: LifeBar(
-                      theme: LifeBarTheme.themes["blue"],
+                      theme: LifeBarTheme.themes[p2Theme],
                       life: p2Life,
                       flipped: false,
                       lifeChangeFunction: _changeLifeP2,

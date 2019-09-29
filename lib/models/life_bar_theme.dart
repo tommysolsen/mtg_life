@@ -5,9 +5,10 @@ class LifeBarTheme {
   Color textColor;
   Color dangerousLifeTotalColor;
   ImageProvider backgroundImage;
+  ImageProvider icon;
 
 
-  LifeBarTheme({this.backgroundColor, this.backgroundImage, this.textColor, this.dangerousLifeTotalColor});
+  LifeBarTheme({this.icon, this.backgroundColor, this.backgroundImage, this.textColor, this.dangerousLifeTotalColor});
 
   static Map<String, LifeBarTheme> get themes {
     return <String, LifeBarTheme>{
@@ -21,6 +22,7 @@ class LifeBarTheme {
         backgroundImage: AssetImage("assets/backgrounds/izzet.jpg"),
         textColor: Colors.white,
         dangerousLifeTotalColor: Colors.red,
+        icon: AssetImage("assets/icons/izzet.png")
       ),
       "red": LifeBarTheme(
         backgroundColor: Colors.red,
