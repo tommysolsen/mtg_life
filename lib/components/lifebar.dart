@@ -106,6 +106,10 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
                         ),
                         Center(
                           child: Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            alignment: WrapAlignment.center,
+                            spacing: 25.0,
+                            runSpacing: 25.0,
                             direction: Axis.horizontal,
                             children: LifeBarTheme.themes.entries
                                 .where((theme) => theme.value.icon != null)

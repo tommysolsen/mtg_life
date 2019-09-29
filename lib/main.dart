@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mtg_life/components/life_menu.dart';
 import 'package:mtg_life/components/lifebar.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'models/life_bar_theme.dart';
 
@@ -57,7 +58,10 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
 
+    precacheImage(LifeBarTheme.themes["azorius"].backgroundImage, context);
+    precacheImage(LifeBarTheme.themes["izzet"].backgroundImage, context);
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
     animationController.addListener(() {
@@ -70,9 +74,16 @@ class _MyHomePageState extends State<MyHomePage>
   int p1Life = 20;
   int p2Life = 20;
 
-  String p1Theme = "red";
+  String p1Theme = "azorius";
   String p2Theme = "izzet";
 
+  void _resetLifeTotal(int value) {
+    setState(() {
+      p1Life = value;
+      p2Life = value;
+      animationController.reverse();
+    });
+  }
   void _changeP1Theme(String theme) {
     setState(() {
       p1Theme = theme;
@@ -109,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage>
       backgroundColor: Color(0xFF38322A),
       body: Stack(
         children: <Widget>[
-          Center(child: LifeMenu()),
+          Center(child: LifeMenu(resetLifeTotals: _resetLifeTotal,)),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
