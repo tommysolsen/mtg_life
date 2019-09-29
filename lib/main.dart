@@ -59,10 +59,7 @@ class _MyHomePageState extends State<MyHomePage>
     super.initState();
 
     animationController =
-        AnimationController(
-            duration: Duration(milliseconds: 500),
-            vsync: this
-        );
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
     animationController.addListener(() {
       setState(() {});
     });
@@ -107,15 +104,15 @@ class _MyHomePageState extends State<MyHomePage>
                   onVerticalDragUpdate: (DragUpdateDetails update) {
                     setState(() {
                       double distance = update.delta.distance / 40;
-                      if(update.delta.dy > 0) {
+                      if (update.delta.dy > 0) {
                         animationController.value -= distance;
-                      } else if(update.delta.dy < 0) {
+                      } else if (update.delta.dy < 0) {
                         animationController.value += distance;
                       }
                     });
                   },
                   onVerticalDragEnd: (DragEndDetails d) {
-                    if(animationController.value < 0.5) {
+                    if (animationController.value < 0.5) {
                       animationController.reverse();
                     } else {
                       animationController.forward();
@@ -124,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: Container(
                     margin: EdgeInsets.only(bottom: marginAnimation.value),
                     child: LifeBar(
-                      theme: LifeBarTheme.themes["red"],
+                      theme: LifeBarTheme.themes["izzet"],
                       life: p1Life,
                       flipped: true,
                       lifeChangeFunction: _changeLifeP1,
@@ -137,15 +134,15 @@ class _MyHomePageState extends State<MyHomePage>
                   onVerticalDragUpdate: (DragUpdateDetails update) {
                     setState(() {
                       double distance = update.delta.distance / 40;
-                      if(update.delta.dy > 0) {
+                      if (update.delta.dy > 0) {
                         animationController.value += distance;
-                      } else if(update.delta.dy < 0) {
+                      } else if (update.delta.dy < 0) {
                         animationController.value -= distance;
                       }
                     });
                   },
                   onVerticalDragEnd: (DragEndDetails d) {
-                    if(animationController.value < 0.5) {
+                    if (animationController.value < 0.5) {
                       animationController.reverse();
                     } else {
                       animationController.forward();
