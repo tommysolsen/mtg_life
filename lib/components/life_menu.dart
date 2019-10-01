@@ -2,9 +2,10 @@ import "package:flutter/material.dart";
 
 class LifeMenu extends StatefulWidget {
   Function resetLifeTotals;
+  Function setLifeTotals;
   AnimationController parentController;
 
-  LifeMenu({this.resetLifeTotals, this.parentController});
+  LifeMenu({this.setLifeTotals, this.resetLifeTotals, this.parentController});
 
   @override
   _LifeMenuState createState() => _LifeMenuState();
@@ -59,7 +60,7 @@ class _LifeMenuState extends State<LifeMenu>
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      widget.resetLifeTotals(20);
+                      widget.setLifeTotals(20);
                       Future.delayed(Duration(milliseconds: 500), () {
                         currentMenu = null;
                       });
@@ -72,7 +73,7 @@ class _LifeMenuState extends State<LifeMenu>
                   ),
                   FlatButton(
                     onPressed: () async {
-                      widget.resetLifeTotals(30);
+                      widget.setLifeTotals(30);
                       Future.delayed(Duration(milliseconds: 500), () {
                         currentMenu = null;
                       });
@@ -85,7 +86,7 @@ class _LifeMenuState extends State<LifeMenu>
                   ),
                   FlatButton(
                     onPressed: () async {
-                      widget.resetLifeTotals(40);
+                      widget.setLifeTotals(40);
                       Future.delayed(Duration(milliseconds: 500), () {
                         currentMenu = null;
                       });
@@ -117,6 +118,16 @@ class _LifeMenuState extends State<LifeMenu>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   IconButton(
+                    onPressed: () {
+                      widget.resetLifeTotals();
+                    },
+                    icon: Icon(
+                      Icons.autorenew,
+                      color: Colors.white,
+                      size: 36
+                    )
+                  ),
+                  IconButton(
                       onPressed: () {
                         currentMenu = "LifeMenu";
                       },
@@ -125,6 +136,14 @@ class _LifeMenuState extends State<LifeMenu>
                         color: Colors.white,
                         size: 36,
                       )),
+                  IconButton(
+                    onPressed: () => currentMenu = "Info",
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: Colors.white,
+                      size: 36
+                    )
+                  )
                 ],
               ),
             ),

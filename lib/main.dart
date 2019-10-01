@@ -71,16 +71,26 @@ class _MyHomePageState extends State<MyHomePage>
 
   int p1Life = 20;
   int p2Life = 20;
+  int stdLife = 20;
 
   String p1Theme = "azorius";
   String p2Theme = "izzet";
 
-  void _resetLifeTotal(int value) {
+  void _setLifeTotal(int value) {
     setState(() {
       p1Life = value;
       p2Life = value;
+      stdLife = value;
       animationController.reverse();
     });
+  }
+
+  void _resetLifeTotal() {
+    setState(() {
+      p1Life = stdLife;
+      p2Life = stdLife;
+    });
+    animationController.reverse();
   }
 
   void _changeP1Theme(String theme) {
@@ -141,6 +151,7 @@ class _MyHomePageState extends State<MyHomePage>
           Center(
               child: LifeMenu(
             resetLifeTotals: _resetLifeTotal,
+            setLifeTotals: _setLifeTotal,
             parentController: animationController,
           )),
           Column(
