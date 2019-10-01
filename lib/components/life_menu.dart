@@ -108,13 +108,13 @@ class _LifeMenuState extends State<LifeMenu>
   Widget build(BuildContext context) {
     double translateShift = translateAnimation.value * -1;
     return Transform.translate(
-      offset: Offset(0, -2),
+      offset: Offset(0, 0),
           child: Stack(
         children: <Widget>[
           Opacity(
             opacity: 1.0 - animationController.value,
             child: Transform.translate(
-              offset: Offset(0, translateShift),
+              offset: Offset(0, translateShift + -2),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
