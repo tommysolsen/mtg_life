@@ -107,54 +107,57 @@ class _LifeMenuState extends State<LifeMenu>
   @override
   Widget build(BuildContext context) {
     double translateShift = translateAnimation.value * -1;
-    return Stack(
-      children: <Widget>[
-        Opacity(
-          opacity: 1.0 - animationController.value,
-          child: Transform.translate(
-            offset: Offset(0, translateShift),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {
-                      widget.resetLifeTotals();
-                    },
-                    icon: Icon(
-                      Icons.autorenew,
-                      color: Colors.white,
-                      size: 36
-                    )
-                  ),
-                  IconButton(
+    return Transform.translate(
+      offset: Offset(0, -2),
+          child: Stack(
+        children: <Widget>[
+          Opacity(
+            opacity: 1.0 - animationController.value,
+            child: Transform.translate(
+              offset: Offset(0, translateShift),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
                       onPressed: () {
-                        currentMenu = "LifeMenu";
+                        widget.resetLifeTotals();
                       },
                       icon: Icon(
-                        Icons.favorite_border,
+                        Icons.autorenew,
                         color: Colors.white,
-                        size: 36,
-                      )),
-                  IconButton(
-                    onPressed: () => currentMenu = "Info",
-                    icon: Icon(
-                      Icons.info_outline,
-                      color: Colors.white,
-                      size: 36
+                        size: 36
+                      )
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          currentMenu = "LifeMenu";
+                        },
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Colors.white,
+                          size: 36,
+                        )),
+                    IconButton(
+                      onPressed: () => currentMenu = "Info",
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: Colors.white,
+                        size: 36
+                      )
                     )
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Opacity(
-            opacity: animationController.value,
-            child: Transform.translate(
-                offset: Offset(0, 30.0 + translateShift),
-                child: buildCurrentMenu(context)))
-      ],
+          Opacity(
+              opacity: animationController.value,
+              child: Transform.translate(
+                  offset: Offset(0, 30.0 + translateShift),
+                  child: buildCurrentMenu(context)))
+        ],
+      ),
     );
   }
 }
