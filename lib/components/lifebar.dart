@@ -136,6 +136,18 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
                       ].where((x) => x != null).toList(),
                     ))
                 : null,
+            
+            GestureDetector(
+              
+              onVerticalDragUpdate: widget.dragUpdate,
+              onVerticalDragEnd: widget.dragEnd,
+                          child: Container(
+                height: 75,
+                decoration: BoxDecoration(
+                  color: Color(0x01000000),
+                ),
+              ),
+            ),
             Positioned(
               top: 12,
               right: 12,
@@ -150,17 +162,6 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
                 icon: Icon(Icons.color_lens, color: widget.theme.textColor,),
               ),
             ),
-            GestureDetector(
-              
-              onVerticalDragUpdate: widget.dragUpdate,
-              onVerticalDragEnd: widget.dragEnd,
-                          child: Container(
-                height: 75,
-                decoration: BoxDecoration(
-                  color: Color(0x01000000),
-                ),
-              ),
-            )
           ].where((x) => x != null).toList(),
         ),
       ),
