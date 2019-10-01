@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
 class LifeMenu extends StatefulWidget {
-  Function resetLifeTotals;
-  Function setLifeTotals;
-  AnimationController parentController;
+  final Function resetLifeTotals;
+  final Function setLifeTotals;
+  final AnimationController parentController;
 
   LifeMenu({this.setLifeTotals, this.resetLifeTotals, this.parentController});
 

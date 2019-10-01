@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage>
                 
                   child: Container(
                     margin: EdgeInsets.only(bottom: marginAnimation.value),
-                    child: LifeBar(
+                    child: LifeDisplay(
                       theme: LifeBarTheme.themes[p1Theme],
                       life: p1Life,
                       flipped: true,
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage>
               Expanded(
                   child: Container(
                     margin: EdgeInsets.only(top: marginAnimation.value),
-                    child: LifeBar(
+                    child: LifeDisplay(
                       theme: LifeBarTheme.themes[p2Theme],
                       life: p2Life,
                       flipped: false,
