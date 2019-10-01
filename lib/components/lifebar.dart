@@ -33,7 +33,6 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ac =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400));
@@ -142,7 +141,7 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
               onVerticalDragUpdate: widget.dragUpdate,
               onVerticalDragEnd: widget.dragEnd,
                           child: Container(
-                height: 75,
+                height: MediaQuery.of(context).size.height*0.16,
                 decoration: BoxDecoration(
                   color: Color(0x01000000),
                 ),
