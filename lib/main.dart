@@ -159,9 +159,8 @@ class _MyHomePageState extends State<MyHomePage>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
-                
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: marginAnimation.value),
+                  child: Transform.translate(
+                    offset: Offset(0, marginAnimation.value * -1),
                     child: LifeDisplay(
                       theme: LifeBarTheme.themes[p1Theme],
                       life: p1Life,
@@ -174,8 +173,8 @@ class _MyHomePageState extends State<MyHomePage>
                   ),
               ),
               Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: marginAnimation.value),
+                  child: Transform.translate(
+                    offset: Offset(0, marginAnimation.value),
                     child: LifeDisplay(
                       theme: LifeBarTheme.themes[p2Theme],
                       life: p2Life,
