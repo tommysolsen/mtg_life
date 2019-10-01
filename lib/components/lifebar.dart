@@ -10,6 +10,9 @@ class LifeBar extends StatefulWidget {
   Function lifeChangeFunction;
   Function themeChangeFunction;
 
+  Function dragUpdate;
+  Function dragEnd;
+
   bool flipped = false;
 
   LifeBar(
@@ -17,7 +20,9 @@ class LifeBar extends StatefulWidget {
       this.life,
       this.flipped,
       this.lifeChangeFunction,
-      this.themeChangeFunction});
+      this.themeChangeFunction,
+      this.dragUpdate,
+      this.dragEnd});
 
   @override
   _LifeBarState createState() => _LifeBarState();
@@ -143,6 +148,17 @@ class _LifeBarState extends State<LifeBar> with SingleTickerProviderStateMixin {
                   }
                 },
                 icon: Icon(Icons.color_lens, color: widget.theme.textColor,),
+              ),
+            ),
+            GestureDetector(
+              
+              onVerticalDragUpdate: widget.dragUpdate,
+              onVerticalDragEnd: widget.dragEnd,
+                          child: Container(
+                height: 75,
+                decoration: BoxDecoration(
+                  color: Color(0x01000000),
+                ),
               ),
             )
           ].where((x) => x != null).toList(),

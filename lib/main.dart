@@ -107,6 +107,25 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
+  void onVerticalDragUpdate(DragUpdateDetails update) {
+    setState(() {
+      double distance = update.delta.distance / 40;
+      if (update.delta.dy < 0) {
+        animationController.value -= distance;
+      } else if (update.delta.dy > 0) {
+        animationController.value += distance;
+      }
+    });
+  }
+
+  void onVerticalDragEnd(DragEndDetails d) {
+    if (animationController.value < 0.5) {
+      animationController.reverse();
+    } else {
+      animationController.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -129,24 +148,7 @@ class _MyHomePageState extends State<MyHomePage>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
-                child: GestureDetector(
-                  onVerticalDragUpdate: (DragUpdateDetails update) {
-                    setState(() {
-                      double distance = update.delta.distance / 40;
-                      if (update.delta.dy > 0) {
-                        animationController.value -= distance;
-                      } else if (update.delta.dy < 0) {
-                        animationController.value += distance;
-                      }
-                    });
-                  },
-                  onVerticalDragEnd: (DragEndDetails d) {
-                    if (animationController.value < 0.5) {
-                      animationController.reverse();
-                    } else {
-                      animationController.forward();
-                    }
-                  },
+                
                   child: Container(
                     margin: EdgeInsets.only(bottom: marginAnimation.value),
                     child: LifeBar(
@@ -155,29 +157,12 @@ class _MyHomePageState extends State<MyHomePage>
                       flipped: true,
                       lifeChangeFunction: _changeLifeP1,
                       themeChangeFunction: _changeP1Theme,
+                      dragUpdate: onVerticalDragUpdate,
+                      dragEnd: onVerticalDragEnd,
                     ),
                   ),
-                ),
               ),
               Expanded(
-                child: GestureDetector(
-                  onVerticalDragUpdate: (DragUpdateDetails update) {
-                    setState(() {
-                      double distance = update.delta.distance / 40;
-                      if (update.delta.dy > 0) {
-                        animationController.value += distance;
-                      } else if (update.delta.dy < 0) {
-                        animationController.value -= distance;
-                      }
-                    });
-                  },
-                  onVerticalDragEnd: (DragEndDetails d) {
-                    if (animationController.value < 0.5) {
-                      animationController.reverse();
-                    } else {
-                      animationController.forward();
-                    }
-                  },
                   child: Container(
                     margin: EdgeInsets.only(top: marginAnimation.value),
                     child: LifeBar(
@@ -186,9 +171,10 @@ class _MyHomePageState extends State<MyHomePage>
                       flipped: false,
                       lifeChangeFunction: _changeLifeP2,
                       themeChangeFunction: _changeP2Theme,
+                      dragUpdate: onVerticalDragUpdate,
+                      dragEnd: onVerticalDragEnd
                     ),
                   ),
-                ),
               )
             ],
           ),
