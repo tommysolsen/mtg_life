@@ -64,7 +64,7 @@ class _LifeBarState extends State<LifeDisplay> with TickerProviderStateMixin {
     if (!healthDiff.isAnimating) {
       currentHealth = widget.life;
     }
-    healthDiff.value = 0;
+    healthDiff.value = 0.01;
     healthDiff.forward();
   }
 
