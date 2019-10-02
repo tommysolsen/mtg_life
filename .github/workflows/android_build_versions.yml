@@ -1,5 +1,6 @@
 on:
-  release: [published]
+  release: 
+    types: [published]
 name: "Build release: Android"
 jobs:
   generate:
