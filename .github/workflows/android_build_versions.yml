@@ -1,5 +1,6 @@
-on: release
-name: Handle Release
+on:
+  release: [published]
+name: "Build release: Android"
 jobs:
   generate:
     name: Create release-artifacts
