@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import "package:flutter/material.dart";
 import 'package:mtg_life/models/life_bar_theme.dart';
 
@@ -10,8 +8,6 @@ class LifeDisplay extends StatefulWidget {
   final Function lifeChangeFunction;
   final Function themeChangeFunction;
 
-  final Function dragUpdate;
-  final Function dragEnd;
 
   final bool flipped;
 
@@ -21,8 +17,7 @@ class LifeDisplay extends StatefulWidget {
       this.flipped,
       this.lifeChangeFunction,
       this.themeChangeFunction,
-      this.dragUpdate,
-      this.dragEnd});
+      });
 
   @override
   _LifeBarState createState() => _LifeBarState();
@@ -73,9 +68,7 @@ class _LifeBarState extends State<LifeDisplay> with TickerProviderStateMixin {
     MediaQueryData mc = MediaQuery.of(context);
     return Material(
       elevation: 4,
-      child: Transform.rotate(
-        angle: widget.flipped == true ? pi : 0,
-        child: Stack(
+      child: Stack(
           children: <Widget>[
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -171,16 +164,7 @@ class _LifeBarState extends State<LifeDisplay> with TickerProviderStateMixin {
                       ].where((x) => x != null).toList(),
                     ))
                 : null,
-            GestureDetector(
-              onVerticalDragUpdate: widget.dragUpdate,
-              onVerticalDragEnd: widget.dragEnd,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.16,
-                decoration: BoxDecoration(
-                  color: Color(0x01000000),
-                ),
-              ),
-            ),
+
             healthDiff.value > 0 ? Positioned(
               top: mc.size.height * 0.10,
               left: mc.size.width / 3,
@@ -213,7 +197,6 @@ class _LifeBarState extends State<LifeDisplay> with TickerProviderStateMixin {
             ),
           ].where((x) => x != null).toList(),
         ),
-      ),
     );
   }
 }

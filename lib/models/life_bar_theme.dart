@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// LifeBarTheme describes the layout and look of a single players
+/// viewbox.
+///
 class LifeBarTheme {
   Color backgroundColor;
   Color textColor;
