@@ -4,17 +4,27 @@ import "package:flutter/material.dart";
 import 'package:mtg_life/components/life_display.dart';
 import 'package:mtg_life/components/life_display_container.dart';
 import 'package:mtg_life/components/life_menu.dart';
+import 'package:mtg_life/components/slide_swap_container.dart';
 import 'package:mtg_life/models/life_bar_theme.dart';
+import 'package:mtg_life/models/player.dart';
 import 'package:wakelock/wakelock.dart';
 
 class TwoPlayerScreen extends StatefulWidget {
+  AnimationController screenChangeController;
+
+  TwoPlayerScreen(this.screenChangeController);
   @override
   _TwoPlayerScreenState createState() => _TwoPlayerScreenState();
 }
 
-class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTickerProviderStateMixin {
+class _TwoPlayerScreenState extends State<TwoPlayerScreen> with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation marginAnimation;
+
+  _TwoPlayerScreenState() {
+    this.p1 = Player(stdLife);
+    this.p2 = Player(stdLife);
+  }
 
   @override
   void initState() {
@@ -30,8 +40,8 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
         CurvedAnimation(parent: animationController, curve: Curves.easeOut));
   }
 
-  int p1Life = 20;
-  int p2Life = 20;
+  Player p1;
+  Player p2;
   int stdLife = 20;
 
   String p1Theme = "azorius";
@@ -39,8 +49,8 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
 
   void _setLifeTotal(int value) {
     setState(() {
-      p1Life = value;
-      p2Life = value;
+      p1 = new Player(value);
+      p2 = new Player(value);
       stdLife = value;
       animationController.reverse();
     });
@@ -48,8 +58,8 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
 
   void _resetLifeTotal() {
     setState(() {
-      p1Life = stdLife;
-      p2Life = stdLife;
+      p1 = new Player(stdLife);
+      p2 = new Player(stdLife);
     });
     animationController.reverse();
   }
@@ -63,18 +73,6 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
   void _changeP2Theme(String theme) {
     setState(() {
       p2Theme = theme;
-    });
-  }
-
-  void _changeLifeP1(int amount) {
-    setState(() {
-      p1Life = max(0, p1Life + amount);
-    });
-  }
-
-  void _changeLifeP2(int amount) {
-    setState(() {
-      p2Life = max(0, p2Life + amount);
     });
   }
 
@@ -99,6 +97,7 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    var changeAnimationOffset = MediaQuery.of(context).size.height/2;
     return Stack(
       children: <Widget>[
         Center(
@@ -106,6 +105,7 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
               resetLifeTotals: _resetLifeTotal,
               setLifeTotals: _setLifeTotal,
               parentController: animationController,
+              screenChangeAnimation: widget.screenChangeController,
             )),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -113,38 +113,42 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen>     with SingleTicker
           children: <Widget>[
             Expanded(
               child: Transform.translate(
-                offset: Offset(0, marginAnimation.value * -1),
-                child: Transform.rotate(
-                  angle: pi,
-                  child: LifeDisplayContainer(
-                    onVerticalDragUpdate: onVerticalDragUpdate,
-                    onVerticalDragEnd: onVerticalDragEnd,
-                    child: LifeDisplay(
-                      theme: LifeBarTheme.themes[p1Theme],
-                      life: p1Life,
-                      flipped: true,
-                      lifeChangeFunction: _changeLifeP1,
-                      themeChangeFunction: _changeP1Theme,
+                  offset: Offset(0, marginAnimation.value * -1),
+                  child: Transform.rotate(
+                    angle: pi,
+                    child: SlideSwapContainer(
+                      context: context,
+                      controller: widget.screenChangeController,
+                      child: LifeDisplayContainer(
+                        onVerticalDragUpdate: onVerticalDragUpdate,
+                        onVerticalDragEnd: onVerticalDragEnd,
+                        child: LifeDisplay(
+                          player: p1,
+                          theme: LifeBarTheme.themes[p1Theme],
+                          themeChangeFunction: _changeP1Theme,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
             ),
             Expanded(
               child: Transform.translate(
-                offset: Offset(0, marginAnimation.value),
-                child: LifeDisplayContainer(
-                  onVerticalDragEnd: onVerticalDragEnd,
-                  onVerticalDragUpdate: onVerticalDragUpdate,
-                  child: LifeDisplay(
-                    theme: LifeBarTheme.themes[p2Theme],
-                    life: p2Life,
-                    flipped: false,
-                    lifeChangeFunction: _changeLifeP2,
-                    themeChangeFunction: _changeP2Theme,
+                  offset: Offset(0, marginAnimation.value),
+                  child: SlideSwapContainer(
+                    controller: widget.screenChangeController,
+                    context: context,
+                    child: LifeDisplayContainer(
+                      onVerticalDragEnd: onVerticalDragEnd,
+                      onVerticalDragUpdate: onVerticalDragUpdate,
+                      child: LifeDisplay(
+                        player: p2,
+                        theme: LifeBarTheme.themes[p2Theme],
+                        themeChangeFunction: _changeP2Theme,
+                      ),
+                    ),
                   ),
                 ),
-              ),
             )
           ],
         ),
