@@ -107,8 +107,8 @@ class _LifeBarState extends State<LifeDisplay> with TickerProviderStateMixin {
                                   ? widget.theme.dangerousLifeTotalColor
                                   : widget.theme.textColor,
                               fontSize: widget.life >= 100
-                                  ? constraints.maxHeight * 0.4
-                                  : constraints.maxHeight * 0.5,
+                                  ? constraints.maxHeight * 0.3
+                                  : constraints.maxHeight * 0.4,
                               shadows: [
                                 Shadow(
                                     color: Colors.black.withOpacity(0.4),

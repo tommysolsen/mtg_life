@@ -18,7 +18,8 @@ class FourPlayerScreen extends StatefulWidget {
   _FourPlayerScreenState createState() => _FourPlayerScreenState();
 }
 
-class _FourPlayerScreenState extends State<FourPlayerScreen> with SingleTickerProviderStateMixin {
+class _FourPlayerScreenState extends State<FourPlayerScreen>
+    with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation marginAnimation;
 
@@ -54,7 +55,6 @@ class _FourPlayerScreenState extends State<FourPlayerScreen> with SingleTickerPr
         CurvedAnimation(parent: animationController, curve: Curves.easeOut));
   }
 
-
   void _setLifeTotal(int value) {
     setState(() {
       p1 = new Player(value);
@@ -87,11 +87,13 @@ class _FourPlayerScreenState extends State<FourPlayerScreen> with SingleTickerPr
       p2Theme = theme;
     });
   }
+
   void _changeP3Theme(String theme) {
     setState(() {
       p3Theme = theme;
     });
   }
+
   void _changeP4Theme(String theme) {
     setState(() {
       p4Theme = theme;
@@ -119,79 +121,28 @@ class _FourPlayerScreenState extends State<FourPlayerScreen> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    var changeAnimationOffset = MediaQuery.of(context).size.height/2;
+    var changeAnimationOffset = MediaQuery.of(context).size.height / 2;
     return Stack(
       children: <Widget>[
         Center(
             child: LifeMenu(
-              resetLifeTotals: _resetLifeTotal,
-              setLifeTotals: _setLifeTotal,
-              parentController: animationController,
-              screenChangeAnimation: widget.screenChangeController,
-            )),
+          resetLifeTotals: _resetLifeTotal,
+          setLifeTotals: _setLifeTotal,
+          parentController: animationController,
+          screenChangeAnimation: widget.screenChangeController,
+        )),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
               child: Transform.translate(
-                  offset: Offset(0, marginAnimation.value * -1),
-                  child: Transform.rotate(
-                    angle: pi,
-                    child: SlideSwapContainer(
-                      context: context,
-                      controller: widget.screenChangeController,
-                      child: LifeDisplayContainer(
-                          onVerticalDragUpdate: onVerticalDragUpdate,
-                          onVerticalDragEnd: onVerticalDragEnd,
-                          child: Container(
-                            color: Colors.green,
-                            width: 500,
-                            height: 400,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                Expanded(
-                                  child: RotatedBox(
-                                    quarterTurns: 1,
-                                    child: Container(
-                                      child: LifeDisplay(
-                                        player: p1,
-                                        theme: LifeBarTheme.themes[p1Theme],
-                                        themeChangeFunction: _changeP1Theme,
-                                      ),
-                                    ),
-                                  ),
-
-                                ),
-                                Expanded(
-                                  child: RotatedBox(
-                                    quarterTurns: 3,
-                                    child: Container(
-                                        child: LifeDisplay(
-                                          player: p3,
-                                          theme: LifeBarTheme.themes[p3Theme],
-                                          themeChangeFunction: _changeP3Theme,
-                                        )
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                      ),
-                    ),
-
-                ),
-              ),
-            ),
-            Expanded(
-                child: Transform.translate(
-                  offset: Offset(0, marginAnimation.value),
+                offset: Offset(0, marginAnimation.value * -1),
+                child: Transform.rotate(
+                  angle: pi,
                   child: SlideSwapContainer(
-                    controller: widget.screenChangeController,
                     context: context,
+                    controller: widget.screenChangeController,
                     child: LifeDisplayContainer(
                         onVerticalDragUpdate: onVerticalDragUpdate,
                         onVerticalDragEnd: onVerticalDragEnd,
@@ -208,33 +159,76 @@ class _FourPlayerScreenState extends State<FourPlayerScreen> with SingleTickerPr
                                   quarterTurns: 1,
                                   child: Container(
                                     child: LifeDisplay(
-                                      player: p2,
-                                      theme: LifeBarTheme.themes[p2Theme],
-                                      themeChangeFunction: _changeP2Theme,
+                                      player: p1,
+                                      theme: LifeBarTheme.themes[p1Theme],
+                                      themeChangeFunction: _changeP1Theme,
                                     ),
                                   ),
                                 ),
-
                               ),
                               Expanded(
                                 child: RotatedBox(
                                   quarterTurns: 3,
                                   child: Container(
                                       child: LifeDisplay(
-                                        player: p4,
-                                        theme: LifeBarTheme.themes[p4Theme],
-                                        themeChangeFunction: _changeP4Theme,
-                                      )
-                                  ),
+                                    player: p3,
+                                    theme: LifeBarTheme.themes[p3Theme],
+                                    themeChangeFunction: _changeP3Theme,
+                                  )),
                                 ),
                               )
                             ],
                           ),
-                        )
-                    ),
+                        )),
                   ),
                 ),
-
+              ),
+            ),
+            Expanded(
+              child: Transform.translate(
+                offset: Offset(0, marginAnimation.value),
+                child: SlideSwapContainer(
+                  controller: widget.screenChangeController,
+                  context: context,
+                  child: LifeDisplayContainer(
+                      onVerticalDragUpdate: onVerticalDragUpdate,
+                      onVerticalDragEnd: onVerticalDragEnd,
+                      child: Container(
+                        color: Colors.green,
+                        width: 500,
+                        height: 400,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: 1,
+                                child: Container(
+                                  child: LifeDisplay(
+                                    player: p2,
+                                    theme: LifeBarTheme.themes[p2Theme],
+                                    themeChangeFunction: _changeP2Theme,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: 3,
+                                child: Container(
+                                    child: LifeDisplay(
+                                  player: p4,
+                                  theme: LifeBarTheme.themes[p4Theme],
+                                  themeChangeFunction: _changeP4Theme,
+                                )),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
+                ),
+              ),
             )
           ],
         ),

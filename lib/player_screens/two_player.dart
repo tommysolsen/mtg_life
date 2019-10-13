@@ -13,11 +13,13 @@ class TwoPlayerScreen extends StatefulWidget {
   AnimationController screenChangeController;
 
   TwoPlayerScreen(this.screenChangeController);
+
   @override
   _TwoPlayerScreenState createState() => _TwoPlayerScreenState();
 }
 
-class _TwoPlayerScreenState extends State<TwoPlayerScreen> with SingleTickerProviderStateMixin {
+class _TwoPlayerScreenState extends State<TwoPlayerScreen>
+    with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation marginAnimation;
 
@@ -97,58 +99,58 @@ class _TwoPlayerScreenState extends State<TwoPlayerScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    var changeAnimationOffset = MediaQuery.of(context).size.height/2;
+    var changeAnimationOffset = MediaQuery.of(context).size.height / 2;
     return Stack(
       children: <Widget>[
         Center(
             child: LifeMenu(
-              resetLifeTotals: _resetLifeTotal,
-              setLifeTotals: _setLifeTotal,
-              parentController: animationController,
-              screenChangeAnimation: widget.screenChangeController,
-            )),
+          resetLifeTotals: _resetLifeTotal,
+          setLifeTotals: _setLifeTotal,
+          parentController: animationController,
+          screenChangeAnimation: widget.screenChangeController,
+        )),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
               child: Transform.translate(
-                  offset: Offset(0, marginAnimation.value * -1),
-                  child: Transform.rotate(
-                    angle: pi,
-                    child: SlideSwapContainer(
-                      context: context,
-                      controller: widget.screenChangeController,
-                      child: LifeDisplayContainer(
-                        onVerticalDragUpdate: onVerticalDragUpdate,
-                        onVerticalDragEnd: onVerticalDragEnd,
-                        child: LifeDisplay(
-                          player: p1,
-                          theme: LifeBarTheme.themes[p1Theme],
-                          themeChangeFunction: _changeP1Theme,
-                        ),
+                offset: Offset(0, marginAnimation.value * -1),
+                child: Transform.rotate(
+                  angle: pi,
+                  child: SlideSwapContainer(
+                    context: context,
+                    controller: widget.screenChangeController,
+                    child: LifeDisplayContainer(
+                      onVerticalDragUpdate: onVerticalDragUpdate,
+                      onVerticalDragEnd: onVerticalDragEnd,
+                      child: LifeDisplay(
+                        player: p1,
+                        theme: LifeBarTheme.themes[p1Theme],
+                        themeChangeFunction: _changeP1Theme,
                       ),
                     ),
                   ),
                 ),
+              ),
             ),
             Expanded(
               child: Transform.translate(
-                  offset: Offset(0, marginAnimation.value),
-                  child: SlideSwapContainer(
-                    controller: widget.screenChangeController,
-                    context: context,
-                    child: LifeDisplayContainer(
-                      onVerticalDragEnd: onVerticalDragEnd,
-                      onVerticalDragUpdate: onVerticalDragUpdate,
-                      child: LifeDisplay(
-                        player: p2,
-                        theme: LifeBarTheme.themes[p2Theme],
-                        themeChangeFunction: _changeP2Theme,
-                      ),
+                offset: Offset(0, marginAnimation.value),
+                child: SlideSwapContainer(
+                  controller: widget.screenChangeController,
+                  context: context,
+                  child: LifeDisplayContainer(
+                    onVerticalDragEnd: onVerticalDragEnd,
+                    onVerticalDragUpdate: onVerticalDragUpdate,
+                    child: LifeDisplay(
+                      player: p2,
+                      theme: LifeBarTheme.themes[p2Theme],
+                      themeChangeFunction: _changeP2Theme,
                     ),
                   ),
                 ),
+              ),
             )
           ],
         ),
